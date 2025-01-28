@@ -7,6 +7,8 @@ import { logger } from './utils/logger';
 import authRoutes from './routes/authRoutes';
 import challengeRoutes from './routes/challengeRoutes';
 import submissionRoutes from './routes/submissionRoutes';
+import userRoutes from './routes/userRoutes';
+import path from 'path';
 
 // Load environment variables
 import dotenv from 'dotenv';
@@ -28,12 +30,24 @@ app.get('/health', (req, res) => {
   res.status(200).json({ status: 'ok', message: 'Server is running' });
 });
 
+
+// Serve static files from the uploads directory
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+
+
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/challenges', challengeRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/challenges', challengeRoutes);
 app.use('/api/submissions', submissionRoutes);
+
+
+app.use('/api/auth', authRoutes);
+app.use('/api/challenges', challengeRoutes);
+app.use('/api/submissions', submissionRoutes);
+app.use('/api/users', userRoutes);
+
 
 
 // Error handling middleware
