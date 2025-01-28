@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import authRoutes from './routes/authRoutes';
 import { connectDatabase } from './config/database';
 import { logger } from './utils/logger';
 
@@ -24,6 +25,9 @@ connectDatabase();
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'ok', message: 'Server is running' });
 });
+
+// Routes
+app.use('/api/auth', authRoutes);
 
 // Error handling middleware
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
