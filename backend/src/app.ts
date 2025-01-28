@@ -2,9 +2,11 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
-import authRoutes from './routes/authRoutes';
 import { connectDatabase } from './config/database';
 import { logger } from './utils/logger';
+import authRoutes from './routes/authRoutes';
+import challengeRoutes from './routes/challengeRoutes';
+import submissionRoutes from './routes/submissionRoutes';
 
 // Load environment variables
 import dotenv from 'dotenv';
@@ -28,6 +30,11 @@ app.get('/health', (req, res) => {
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/challenges', challengeRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/challenges', challengeRoutes);
+app.use('/api/submissions', submissionRoutes);
+
 
 // Error handling middleware
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
