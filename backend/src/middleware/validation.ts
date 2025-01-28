@@ -52,3 +52,30 @@ export const validateChallenge = [
     next();
   }
 ];
+
+
+export const validateSubmission = [
+    body('content').trim().notEmpty().withMessage('Submission content is required'),
+    body('attachments').optional().isArray().withMessage('Attachments must be an array of strings'),
+  
+    (req: Request, res: Response, next: NextFunction) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+      next();
+    }
+  ];
+  
+  export const validateSubmissionUpdate = [
+    body('status').optional().isIn(['Pending', 'Approved', 'Rejected']).withMessage('Invalid status'),
+    body('feedback').optional().trim().notEmpty().withMessage('Feedback cannot be empty'),
+  
+    (req: Request, res: Response, next: NextFunction) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+      next();
+    }
+  ];
