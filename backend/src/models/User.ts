@@ -10,6 +10,26 @@ export interface IUser extends Document {
   profilePicture?: string;
   bio?: string;
   skills: string[];
+  education: {
+    institution: string;
+    degree: string;
+    fieldOfStudy: string;
+    from: Date;
+    to: Date;
+  }[];
+  experience: {
+    company: string;
+    position: string;
+    from: Date;
+    to: Date;
+    current: boolean;
+    description: string;
+  }[];
+  socialLinks: {
+    linkedin?: string;
+    github?: string;
+    website?: string;
+  };
   completedChallenges: mongoose.Types.ObjectId[];
   ongoingChallenges: mongoose.Types.ObjectId[];
   createdAt: Date;
@@ -54,6 +74,26 @@ const userSchema = new Schema<IUser>({
   skills: [{
     type: String
   }],
+  education: [{
+    institution: String,
+    degree: String,
+    fieldOfStudy: String,
+    from: Date,
+    to: Date
+  }],
+  experience: [{
+    company: String,
+    position: String,
+    from: Date,
+    to: Date,
+    current: Boolean,
+    description: String
+  }],
+  socialLinks: {
+    linkedin: String,
+    github: String,
+    website: String
+  },
   completedChallenges: [{
     type: Schema.Types.ObjectId,
     ref: 'Challenge'

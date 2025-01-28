@@ -79,3 +79,35 @@ export const validateSubmission = [
       next();
     }
   ];
+
+
+  //profile
+
+export const validateUserProfileUpdate = [
+    body('firstName').optional().trim().notEmpty().withMessage('First name cannot be empty'),
+    body('lastName').optional().trim().notEmpty().withMessage('Last name cannot be empty'),
+    body('bio').optional().trim().isLength({ max: 500 }).withMessage('Bio must be less than 500 characters'),
+    body('skills').optional().isArray().withMessage('Skills must be an array of strings'),
+    body('education.*.institution').optional().trim().notEmpty().withMessage('Institution name is required'),
+    body('education.*.degree').optional().trim().notEmpty().withMessage('Degree is required'),
+    body('education.*.fieldOfStudy').optional().trim().notEmpty().withMessage('Field of study is required'),
+    body('education.*.from').optional().isISO8601().toDate().withMessage('Invalid from date'),
+    body('education.*.to').optional().isISO8601().toDate().withMessage('Invalid to date'),
+    body('experience.*.company').optional().trim().notEmpty().withMessage('Company name is required'),
+    body('experience.*.position').optional().trim().notEmpty().withMessage('Position is required'),
+    body('experience.*.from').optional().isISO8601().toDate().withMessage('Invalid from date'),
+    body('experience.*.to').optional().isISO8601().toDate().withMessage('Invalid to date'),
+    body('experience.*.current').optional().isBoolean().withMessage('Current must be a boolean'),
+    body('experience.*.description').optional().trim().notEmpty().withMessage('Description is required'),
+    body('socialLinks.linkedin').optional().isURL().withMessage('Invalid LinkedIn URL'),
+    body('socialLinks.github').optional().isURL().withMessage('Invalid GitHub URL'),
+    body('socialLinks.website').optional().isURL().withMessage('Invalid website URL'),
+  
+    (req: Request, res: Response, next: NextFunction) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+      next();
+    }
+  ];
