@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Challenge, IChallenge } from '../models/challenge';
+import { Challenge, IChallenge } from '../models/Challenge';
 import { User } from '../models/User';
 import { logger } from '../utils/logger';
 
