@@ -8,6 +8,7 @@ import authRoutes from './routes/authRoutes';
 import challengeRoutes from './routes/challengeRoutes';
 import submissionRoutes from './routes/submissionRoutes';
 import userRoutes from './routes/userRoutes';
+import analyticsRoutes from './routes/analyticsRoutes';
 import path from 'path';
 
 // Load environment variables
@@ -36,17 +37,13 @@ app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 
 // Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/challenges', challengeRoutes);
-app.use('/api/auth', authRoutes);
-app.use('/api/challenges', challengeRoutes);
-app.use('/api/submissions', submissionRoutes);
 
 
 app.use('/api/auth', authRoutes);
 app.use('/api/challenges', challengeRoutes);
 app.use('/api/submissions', submissionRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/analytics', analyticsRoutes);
 
 
 
